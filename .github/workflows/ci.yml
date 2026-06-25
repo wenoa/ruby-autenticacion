@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  test:
+    name: "🧪 Probar guardianes"
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "⚙️ Instalar Ruby y dependencias"
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: "🎨 Lint"
+        run: bundle exec rubocop
+
+      - name: "🧪 Test"
+        run: bundle exec rake test
+
+      - name: "📊 Coverage"
+        run: bundle exec rake check_coverage
