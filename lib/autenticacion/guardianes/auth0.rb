@@ -34,11 +34,11 @@ module Autenticacion
       end
 
       def autenticar_usando(token:, &block)
-        verify token
+        payload, _encabezado = verify(token)
       rescue JWT::DecodeError
         raise Error, "Usuario desconocido"
       else
-        block.call
+        block.call(payload.fetch("sub"))
       end
 
       private

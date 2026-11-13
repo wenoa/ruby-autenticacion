@@ -1,10 +1,10 @@
 RSpec.describe(Autenticacion::Guardianes::Inseguro) {
   subject(:guardian) { described_class.new }
 
-  it("ejecuta el bloque con un JWT firmado con el secreto «inseguro»") {
+  it("ejecuta el bloque con el id de usuario :inseguro con un JWT firmado con el secreto «inseguro»") {
     expect { |probe|
       guardian.autenticar_usando(token: JWT.encode({ "sub" => "123" }, "inseguro"), &probe)
-    }.to yield_with_no_args
+    }.to yield_with_args(:inseguro)
   }
 
   it("falla con «Usuario desconocido» cuando el JWT está firmado con otro secreto") {

@@ -12,7 +12,7 @@ module Autenticacion
       rescue JWT::DecodeError
         raise Error, "Usuario desconocido"
       else
-        block.call
+        block.call(:inseguro)
       end
     end
   end

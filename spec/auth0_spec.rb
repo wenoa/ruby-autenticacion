@@ -70,10 +70,10 @@ RSpec.describe(Autenticacion::Guardianes::Auth0) {
     expect(described_class.desde_el_entorno).to be_a(described_class)
   }
 
-  it("ejecuta el bloque cuando el token tiene firma, emisor, audiencia y vigencia válidas") {
+  it("ejecuta el bloque con el id del usuario del token cuando tiene firma, emisor, audiencia y vigencia válidas") {
     expect { |probe|
       guardian.autenticar_usando(token: token_con(payload_valido), &probe)
-    }.to yield_with_no_args
+    }.to yield_with_args("auth0|123")
   }
 
   it("falla con «Usuario desconocido» cuando el token está vencido") {

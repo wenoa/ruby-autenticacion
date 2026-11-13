@@ -18,7 +18,7 @@ class App < Roda
 
   route do |r|
     r.on "privado" do
-      autenticado do
+      autenticado do |id_del_usuario|
         # ...
       end
     end
