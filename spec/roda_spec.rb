@@ -50,6 +50,14 @@ RSpec.describe("Plugin Roda :autenticacion") {
 
       expect(last_response.status).to eq(401)
     }
+
+    it("responde el 401 con un cuerpo que Rack puede recorrer") {
+      # rack-test convierte un cuerpo String en uno válido: se llama a la app directamente para ver el cuerpo que
+      # recibe el servidor.
+      _status, _headers, cuerpo = app.call(Rack::MockRequest.env_for("/"))
+
+      expect(cuerpo).to respond_to(:each)
+    }
   }
 
   context("con el guardián activo") {
